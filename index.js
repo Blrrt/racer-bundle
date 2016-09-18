@@ -67,8 +67,9 @@ function callBundle(b, minify, cb) {
     if (err) return cb(err);
     // Extract the source map, which Browserify includes as a comment
     var source = buffer.toString('utf8');
-    var map = convertSourceMap.fromSource(source).toJSON();
-    source = convertSourceMap.removeComments(source);
+    var map = {};
+    // var map = convertSourceMap.fromSource(source).toJSON();
+    // source = convertSourceMap.removeComments(source);
     if (!minify) return cb(null, source, map);
 
     // If inSourceMap is a string it is assumed to be a filename, but passing in
