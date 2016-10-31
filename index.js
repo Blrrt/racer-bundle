@@ -77,12 +77,14 @@ function callBundle(b, minify, cb) {
     var inSourceMap = JSON.parse(map);
     var result = uglify.minify(source, {
       fromString: true,
-      outSourceMap: 'map',
-      inSourceMap: inSourceMap,
+      // outSourceMap: 'map',
+      // inSourceMap: inSourceMap,
       compress: false
     });
 
     var mapObject = JSON.parse(result.map);
+    if (!mapObject) return cb(null, result.code, map);
+    
     // Uglify doesn't include the source content in the map, so copy over from
     // the map that browserify generates. However, before doing this, we must
     // first remove any empty sourceContent items since UglifyJS ignores those
